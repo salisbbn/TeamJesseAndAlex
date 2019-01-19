@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1100B60121F383F500B0E1F7 /* BoardMapping.json in Resources */ = {isa = PBXBuildFile; fileRef = 1100B60021F383F500B0E1F7 /* BoardMapping.json */; };
 		CA2BC6AB21F229F4000903CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6AA21F229F4000903CB /* AppDelegate.swift */; };
 		CA2BC6AD21F229F4000903CB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6AC21F229F4000903CB /* MainViewController.swift */; };
 		CA2BC6B021F229F4000903CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA2BC6AE21F229F4000903CB /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1100B60021F383F500B0E1F7 /* BoardMapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = BoardMapping.json; sourceTree = "<group>"; };
 		CA2BC6A721F229F4000903CB /* TeamJesseAndAlex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamJesseAndAlex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA2BC6AA21F229F4000903CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CA2BC6AC21F229F4000903CB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		CA2BC6A921F229F4000903CB /* TeamJesseAndAlex */ = {
 			isa = PBXGroup;
 			children = (
+				1100B60021F383F500B0E1F7 /* BoardMapping.json */,
 				CA2BC6AA21F229F4000903CB /* AppDelegate.swift */,
 				CA2BC6AC21F229F4000903CB /* MainViewController.swift */,
 				CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */,
@@ -170,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2BC6B521F229F5000903CB /* LaunchScreen.storyboard in Resources */,
+				1100B60121F383F500B0E1F7 /* BoardMapping.json in Resources */,
 				CA2BC6B221F229F5000903CB /* Assets.xcassets in Resources */,
 				CA2BC6B021F229F4000903CB /* Main.storyboard in Resources */,
 			);
