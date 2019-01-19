@@ -13,12 +13,16 @@ class MultipleChoiceViewController: UIViewController {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var saveContainer: UIView!
     
-    var numberOfChoices = 2
+    var numberOfDesiredChoices = 2
+    
+    var board: Board?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for index in 0..<numberOfChoices {
+        board = Board()
+        
+        for index in 0..<numberOfDesiredChoices {
             let choiceVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "choiceViewController") as! ChoiceViewController
             choiceVC.tag = index
             self.addChild(choiceVC)

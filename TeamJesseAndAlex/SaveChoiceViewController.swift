@@ -24,8 +24,7 @@ class SaveChoiceViewController: UIViewController {
             self.textField.becomeFirstResponder()
             self.currentSelection = notification.userInfo;
             self.view.superview?.alpha = 1
-            self.imageView.image = notification.userInfo!["UIImagePickerControllerOriginalImage"] as? UIImage
-            
+            self.imageView.image = notification.userInfo!["UIImagePickerControllerEditedImage"] as? UIImage
         }
     }
     
@@ -39,14 +38,13 @@ class SaveChoiceViewController: UIViewController {
             self.textField.text = ""
         }
         
-        let uuid = UUID().uuidString
-        let name = textField.text
-        let imageLocation = currentSelection?["UIImagePickerControllerImageURL"]
-        let tag = currentSelection?["selection"]
+        var choice = currentSelection?["choice"] as? Choice
+        choice?.name = textField.text
+        choice?.imagePath = currentSelection?["UIImagePickerControllerImageURL"] as? URL
         
-        let info = ["info":(uuid, name, imageLocation, tag)]
-        
-        NotificationCenter.default.post(name: Notification.Name("readyForSelection"), object: nil, userInfo: info)
+        if let c = choice{
+            DataNotification.choiceConfigured(c: c).notify()
+        }
     }
     
     /*

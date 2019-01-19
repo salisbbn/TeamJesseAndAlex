@@ -18,21 +18,36 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
     
     var tag: Int?
     
+    var choice = Choice()
     
     override func viewDidLoad() {
         self.navigationItem.title = "Create Choices"
+        
         checkPermission()
         
-        NotificationCenter.default.addObserver(forName: Notification.Name("readyForSelection"), object: nil, queue: .main){ notification in
-            let info = notification.userInfo?["info"] as! (String, String, Any, Int)
-            if info.3 == self.tag{
+        NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
+            let choice = notification.userInfo?["choice"] as! Choice
+            
+            if self.choice.id == choice.id{
                 self.cameraView.isHidden = true
                 self.textLb.isHidden = false
-                self.textLb.text = info.1.uppercased()
+                self.textLb.text = choice.name?.uppercased()
                 
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
             }
+
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name("disableYoruself"), object: nil, queue: .main){ notification in
+            self.view.isUserInteractionEnabled = false
+            
+            if let selected = notification.userInfo?[self.choice.id] {
+                return;
+            }
+            
+            self.view.alpha = 0.1
+            
         }
     }
     
@@ -43,14 +58,17 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
             
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum;
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
             
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
     @IBAction func selectChoice(sender: UIButton){
-        //self.parent?.performSegue(withIdentifier: "choice", sender: nil)
+        
+        let info = [choice.id: choice]
+        NotificationCenter.default.post(name: Notification.Name("disableYoruself"), object: nil, userInfo: info)
+        
         self.selectButton.layer.borderColor = UIColor.green.cgColor
         self.selectButton.layer.borderWidth = 20
     }
@@ -60,9 +78,9 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         self.dismiss(animated: true, completion: { () -> Void in
             
         })
-        mutableInfo["selection"] = self.tag!
-        let notification = NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: mutableInfo)
-        imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
+        mutableInfo["choice"] = self.choice
+        NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: mutableInfo)
+        imageView.image = info["UIImagePickerControllerEditedImage"] as? UIImage
     }
     
     func checkPermission() {

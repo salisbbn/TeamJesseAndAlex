@@ -12,7 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var dataManager = DataManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -44,3 +44,108 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+
+class DataManager {
+   
+    func writeToDisk(b: Board){
+        
+        let fileManager = FileManager.default
+        var temp: Data? = nil
+        var fileURL: URL
+        
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            fileURL = documentDirectory.appendingPathComponent("data.json")
+            temp = try Data(contentsOf: fileURL)
+        } catch let err{
+            print(err)
+            return;
+        }
+        
+        guard let jsonData = temp  else {
+            return;
+        }
+        
+        var newBoards: [Board] = []
+        let decoder = JSONDecoder()
+        do {
+            let oldBoards = try decoder.decode([Board].self, from: jsonData);
+            for b in oldBoards {
+                newBoards.append(b)
+            }
+        } catch let err {
+            print(err)
+        }
+        
+        newBoards.append(b)
+        
+        let encoder = JSONEncoder()
+        do {
+            let dataToWrite = try encoder.encode(b)
+            try dataToWrite.write(to: fileURL)
+        } catch let err {
+            print(err)
+        }
+    }
+}
+
+enum DataNotification{
+    
+    case boardSaved(b: Board)
+    case boardLoaded(b: Board)
+    case choiceConfigured(c: Choice)
+    
+    var notificationName: String{
+        switch self {
+        case .boardSaved(_):
+            return "boardSaved"
+        case .boardLoaded(_):
+            return "boardLoaded"
+        case .choiceConfigured(_):
+            return "choiceConfigured"
+        }
+    }
+    
+    func notify() {
+        var info: [AnyHashable: Any] = [:]
+        switch self {
+        case .boardSaved(let b):
+            info["board"] = b
+        case .boardLoaded(let b):
+            info["board"] = b
+        case .choiceConfigured(let c):
+            info["choice"] = c
+        }
+        NotificationCenter.default.post(name: Notification.Name(self.notificationName), object: nil, userInfo: info)
+    }
+}
+
+struct Board: Codable {
+    var name: String?
+    var id: UUID
+    var choices: [Choice]
+    var numberOfChoices: Int {
+        return choices.count
+    }
+    init(name: String, choices: [Choice]) {
+        self.id = UUID()
+        self.choices = choices
+        self.name = name
+    }
+    init() {
+        self.id = UUID()
+        choices = []
+    }
+}
+
+struct Choice: Codable{
+    var id: UUID
+    var name: String?
+    var imagePath: URL?
+    var audioRecordingPath: URL?
+    
+    init() {
+        self.id = UUID()
+    }
+}

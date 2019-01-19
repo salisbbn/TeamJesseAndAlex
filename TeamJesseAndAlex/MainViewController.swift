@@ -52,11 +52,11 @@ class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? MultipleChoiceViewController{
             if segue.identifier == "three"{
-                destination.numberOfChoices = 3
+                destination.numberOfDesiredChoices = 3
             }else if segue.identifier == "four"{
-                destination.numberOfChoices = 4
+                destination.numberOfDesiredChoices = 4
             }else {
-                destination.numberOfChoices = 2
+                destination.numberOfDesiredChoices = 2
             }
         }
     }
