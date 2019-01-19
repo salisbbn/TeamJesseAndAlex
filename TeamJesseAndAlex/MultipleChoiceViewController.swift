@@ -42,10 +42,19 @@ class MultipleChoiceViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        if let b = self.board{
-            (UIApplication.shared.delegate as! AppDelegate).dataManager.writeToDisk(b: b)
-            self.saveBoardButton.isEnabled = false
-        }
+        
+        let alert = UIAlertController(title: "Name this board:", message: nil, preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil);
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action) in
+            if self.board != nil{
+                self.board!.name = alert.textFields?[0].text
+                (UIApplication.shared.delegate as! AppDelegate).dataManager.writeToDisk(b: self.board!)
+                self.saveBoardButton.isEnabled = false
+            }
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
 
     /*
