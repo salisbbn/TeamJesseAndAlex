@@ -36,8 +36,8 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         self.dismiss(animated: true, completion: { () -> Void in
             
         })
-        
-        imageView.image = info["UIImagePickerControllerOriginalImage"] as! UIImage
+        let notification = NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: info)
+        imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
     }
     
     func checkPermission() {

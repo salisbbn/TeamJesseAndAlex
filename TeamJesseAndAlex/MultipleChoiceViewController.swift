@@ -11,6 +11,7 @@ import UIKit
 class MultipleChoiceViewController: UIViewController {
 
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var saveContainer: UIView!
     
     var numberOfChoices = 2
     

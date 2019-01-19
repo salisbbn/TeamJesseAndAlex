@@ -14,7 +14,28 @@
 		CA2BC6B521F229F5000903CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA2BC6B321F229F5000903CB /* LaunchScreen.storyboard */; };
 		CA2BC6BD21F28EEB000903CB /* MultipleChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */; };
 		CA2BC6C121F2928E000903CB /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6C021F2928E000903CB /* ChoiceViewController.swift */; };
+		CA2BC6D021F2B1C5000903CB /* SaveChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */; };
+		CA2BC6D321F2B63A000903CB /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2BC6D221F2B63A000903CB /* AVFoundation.framework */; };
+		CA2BC6D621F2B6BD000903CB /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2BC6D421F2B63E000903CB /* AudioKit.framework */; };
+		CA2BC6D721F2B6BD000903CB /* AudioKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA2BC6D421F2B63E000903CB /* AudioKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CA2BC6D921F2B6BD000903CB /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA2BC6D821F2B6BD000903CB /* AudioKitUI.framework */; };
+		CA2BC6DA21F2B6BD000903CB /* AudioKitUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CA2BC6D821F2B6BD000903CB /* AudioKitUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CA2BC6CE21F2AEEC000903CB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CA2BC6DA21F2B6BD000903CB /* AudioKitUI.framework in Embed Frameworks */,
+				CA2BC6D721F2B6BD000903CB /* AudioKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CA2BC6A721F229F4000903CB /* TeamJesseAndAlex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TeamJesseAndAlex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +47,10 @@
 		CA2BC6B621F229F5000903CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceViewController.swift; sourceTree = "<group>"; };
 		CA2BC6C021F2928E000903CB /* ChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceViewController.swift; sourceTree = "<group>"; };
+		CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveChoiceViewController.swift; sourceTree = "<group>"; };
+		CA2BC6D221F2B63A000903CB /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CA2BC6D421F2B63E000903CB /* AudioKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AudioKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA2BC6D821F2B6BD000903CB /* AudioKitUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AudioKitUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +58,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA2BC6D921F2B6BD000903CB /* AudioKitUI.framework in Frameworks */,
+				CA2BC6D621F2B6BD000903CB /* AudioKit.framework in Frameworks */,
+				CA2BC6D321F2B63A000903CB /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,8 +70,10 @@
 		CA2BC69E21F229F4000903CB = {
 			isa = PBXGroup;
 			children = (
+				CA2BC6D821F2B6BD000903CB /* AudioKitUI.framework */,
 				CA2BC6A921F229F4000903CB /* TeamJesseAndAlex */,
 				CA2BC6A821F229F4000903CB /* Products */,
+				CA2BC6D121F2B63A000903CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,8 +96,18 @@
 				CA2BC6B121F229F5000903CB /* Assets.xcassets */,
 				CA2BC6B321F229F5000903CB /* LaunchScreen.storyboard */,
 				CA2BC6B621F229F5000903CB /* Info.plist */,
+				CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */,
 			);
 			path = TeamJesseAndAlex;
+			sourceTree = "<group>";
+		};
+		CA2BC6D121F2B63A000903CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA2BC6D421F2B63E000903CB /* AudioKit.framework */,
+				CA2BC6D221F2B63A000903CB /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +120,7 @@
 				CA2BC6A321F229F4000903CB /* Sources */,
 				CA2BC6A421F229F4000903CB /* Frameworks */,
 				CA2BC6A521F229F4000903CB /* Resources */,
+				CA2BC6CE21F2AEEC000903CB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -145,6 +186,7 @@
 				CA2BC6AB21F229F4000903CB /* AppDelegate.swift in Sources */,
 				CA2BC6BD21F28EEB000903CB /* MultipleChoiceViewController.swift in Sources */,
 				CA2BC6C121F2928E000903CB /* ChoiceViewController.swift in Sources */,
+				CA2BC6D021F2B1C5000903CB /* SaveChoiceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,7 +263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -276,7 +318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -293,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PYCR875JNZ;
 				INFOPLIST_FILE = TeamJesseAndAlex/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -311,6 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PYCR875JNZ;
 				INFOPLIST_FILE = TeamJesseAndAlex/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
