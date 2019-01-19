@@ -48,6 +48,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 class DataManager {
    
+    func readFromDisk() -> [Board]?{
+        let fileManager = FileManager.default
+        var temp: Data? = nil
+        var fileURL: URL? = nil
+        
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            fileURL = documentDirectory.appendingPathComponent("data.json")
+            guard fileURL != nil else {
+                return nil;
+            }
+            temp = try Data(contentsOf: fileURL!)
+        } catch let err{
+            print(err)
+        }
+        
+        let decoder = JSONDecoder()
+        if let jsonData = temp  {
+            do {
+                let oldBoards = try decoder.decode([Board].self, from: jsonData);
+                return oldBoards
+            } catch let err {
+                print(err)
+            }
+        }
+        return nil
+    }
+    
     func writeToDisk(b: Board){
         
         let fileManager = FileManager.default
