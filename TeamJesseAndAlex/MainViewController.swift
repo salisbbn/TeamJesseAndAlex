@@ -21,25 +21,25 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let appleBlue = UIColor.init(red: 47.0/255, green: 124.0/255, blue: 246.0/255, alpha: 1.0).cgColor;
+        let appleGrey = UIColor.init(red: 74.0/255, green: 74.0/255, blue: 74.0/255, alpha: 1.0).cgColor;
         
-        twoChoicesBtn.layer.borderColor = appleBlue
+        twoChoicesBtn.layer.borderColor = appleGrey
         twoChoicesBtn.layer.borderWidth = 1.0
         twoChoicesBtn.layer.cornerRadius = 8.0
         
-        threeChoicesBtn.layer.borderColor = appleBlue
+        threeChoicesBtn.layer.borderColor = appleGrey
         threeChoicesBtn.layer.borderWidth = 1.0
         threeChoicesBtn.layer.cornerRadius = 8.0
         
-        fourChoicesBtn.layer.borderColor = appleBlue
+        fourChoicesBtn.layer.borderColor = appleGrey
         fourChoicesBtn.layer.borderWidth = 1.0
         fourChoicesBtn.layer.cornerRadius = 8.0
         
-        savedBoardBtn.layer.borderColor = appleBlue
+        savedBoardBtn.layer.borderColor = appleGrey
         savedBoardBtn.layer.borderWidth = 1.0
         savedBoardBtn.layer.cornerRadius = 8.0
         
-        imageLibraryBtn.layer.borderColor = appleBlue
+        imageLibraryBtn.layer.borderColor = appleGrey
         imageLibraryBtn.layer.borderWidth = 1.0
         imageLibraryBtn.layer.cornerRadius = 8.0
     }

@@ -47,7 +47,9 @@
                                     <constraint firstAttribute="width" constant="238" id="Y5B-8I-r4v"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="2"/>
+                                <state key="normal" title="2">
+                                    <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="gds-wD-4YB" kind="show" identifier="two" id="uG9-T0-3Vb"/>
                                 </connections>
@@ -59,7 +61,9 @@
                                     <constraint firstAttribute="width" constant="238" id="ecA-QN-R3o"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="See saved boards"/>
+                                <state key="normal" title="See saved boards">
+                                    <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OMc-sr-QUW">
                                 <rect key="frame" x="68.666666666666671" y="336" width="100.00000000000001" height="100"/>
@@ -68,7 +72,9 @@
                                     <constraint firstAttribute="height" constant="100" id="sYn-Fv-9lG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="3"/>
+                                <state key="normal" title="3">
+                                    <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="gds-wD-4YB" kind="show" identifier="three" id="fwR-c3-zWJ"/>
                                 </connections>
@@ -80,7 +86,9 @@
                                     <constraint firstAttribute="width" constant="100" id="a8J-x5-OPw"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                <state key="normal" title="4"/>
+                                <state key="normal" title="4">
+                                    <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="gds-wD-4YB" kind="show" identifier="four" id="fJ2-Vy-10V"/>
                                 </connections>
@@ -92,7 +100,9 @@
                                     <constraint firstAttribute="width" constant="238" id="NLA-LG-W2z"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Image library"/>
+                                <state key="normal" title="Image library">
+                                    <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -266,7 +276,9 @@
                                             <constraint firstAttribute="height" constant="30" id="qGL-uW-2JL"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <state key="normal" title="Save"/>
+                                        <state key="normal" title="Save">
+                                            <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="saveWithSender:" destination="6lc-1A-WZC" eventType="touchUpInside" id="u8a-YW-yUg"/>
                                         </connections>
@@ -277,7 +289,9 @@
                                             <constraint firstAttribute="height" constant="30" id="1ia-Nn-338"/>
                                             <constraint firstAttribute="width" constant="49" id="Lsp-3S-baW"/>
                                         </constraints>
-                                        <state key="normal" title="Record"/>
+                                        <state key="normal" title="Record">
+                                            <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -300,6 +314,7 @@
                             <constraint firstItem="pC0-lx-Khd" firstAttribute="centerX" secondItem="mfi-MH-fld" secondAttribute="centerX" id="0xa-ee-rwU"/>
                             <constraint firstItem="pC0-lx-Khd" firstAttribute="top" secondItem="mfi-MH-fld" secondAttribute="topMargin" constant="50" id="90I-jM-ZW1"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="hKc-oW-giy"/>
                     </view>
                     <connections>
                         <outlet property="dialogView" destination="pC0-lx-Khd" id="4tN-JI-iYS"/>
@@ -340,7 +355,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera" width="512" height="512"/>
+        <image name="camera" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="uG9-T0-3Vb"/>
