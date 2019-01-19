@@ -46,7 +46,7 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 return;
             }
             
-            self.view.alpha = 0.1
+            self.view.alpha = 0.5
             
         }
     }
