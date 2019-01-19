@@ -28,6 +28,8 @@ class MultipleChoiceViewController: UIViewController {
             self.addChild(choiceVC)
             stackView.addArrangedSubview(choiceVC.view)
         }
+        
+        
     }
     
 

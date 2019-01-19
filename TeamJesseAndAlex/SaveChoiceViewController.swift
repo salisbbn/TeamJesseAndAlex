@@ -6,8 +6,6 @@
 //  Copyright © 2019 TOM Vanderbilt 2019. All rights reserved.
 //
 
-import AudioKit
-import AudioKitUI
 import UIKit
 import AVFoundation
 
