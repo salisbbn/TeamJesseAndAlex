@@ -35,10 +35,18 @@ class SaveChoiceViewController: UIViewController {
             self.view.superview?.alpha = 0
         }
         
+        UIView.animate(withDuration: 0.3, animations: { self.view.superview?.alpha = 0 }) {competion in
+            self.textField.text = ""
+        }
+        
         let uuid = UUID().uuidString
         let name = textField.text
         let imageLocation = currentSelection?["UIImagePickerControllerImageURL"]
+        let tag = currentSelection?["selection"]
         
+        let info = ["info":(uuid, name, imageLocation, tag)]
+        
+        NotificationCenter.default.post(name: Notification.Name("readyForSelection"), object: nil, userInfo: info)
     }
     
     /*

@@ -13,10 +13,27 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
     
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var cameraView: UIImageView!
+    @IBOutlet weak var textLb: UILabel!
+    
+    var tag: Int?
+    
     
     override func viewDidLoad() {
         self.navigationItem.title = "Create Choices"
         checkPermission()
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name("readyForSelection"), object: nil, queue: .main){ notification in
+            let info = notification.userInfo?["info"] as! (String, String, Any, Int)
+            if info.3 == self.tag{
+                self.cameraView.isHidden = true
+                self.textLb.isHidden = false
+                self.textLb.text = info.1.uppercased()
+                
+                self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
+                self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
+            }
+        }
     }
     
     var imagePicker = UIImagePickerController()
@@ -32,11 +49,19 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         }
     }
     
+    @IBAction func selectChoice(sender: UIButton){
+        //self.parent?.performSegue(withIdentifier: "choice", sender: nil)
+        self.selectButton.layer.borderColor = UIColor.green.cgColor
+        self.selectButton.layer.borderWidth = 20
+    }
+    
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var mutableInfo = info;
         self.dismiss(animated: true, completion: { () -> Void in
             
         })
-        let notification = NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: info)
+        mutableInfo["selection"] = self.tag!
+        let notification = NotificationCenter.default.post(name: Notification.Name("imageSelected"), object: nil, userInfo: mutableInfo)
         imageView.image = info["UIImagePickerControllerOriginalImage"] as? UIImage
     }
     

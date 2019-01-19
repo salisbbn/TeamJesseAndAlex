@@ -18,8 +18,9 @@ class MultipleChoiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for _ in 0..<numberOfChoices {
-            let choiceVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "choiceViewController")
+        for index in 0..<numberOfChoices {
+            let choiceVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "choiceViewController") as! ChoiceViewController
+            choiceVC.tag = index
             self.addChild(choiceVC)
             stackView.addArrangedSubview(choiceVC.view)
         }
