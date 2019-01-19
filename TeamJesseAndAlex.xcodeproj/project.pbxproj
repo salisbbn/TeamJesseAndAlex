@@ -12,6 +12,8 @@
 		CA2BC6B021F229F4000903CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA2BC6AE21F229F4000903CB /* Main.storyboard */; };
 		CA2BC6B221F229F5000903CB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA2BC6B121F229F5000903CB /* Assets.xcassets */; };
 		CA2BC6B521F229F5000903CB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CA2BC6B321F229F5000903CB /* LaunchScreen.storyboard */; };
+		CA2BC6BD21F28EEB000903CB /* MultipleChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */; };
+		CA2BC6C121F2928E000903CB /* ChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6C021F2928E000903CB /* ChoiceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		CA2BC6B121F229F5000903CB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA2BC6B421F229F5000903CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA2BC6B621F229F5000903CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleChoiceViewController.swift; sourceTree = "<group>"; };
+		CA2BC6C021F2928E000903CB /* ChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +60,9 @@
 			children = (
 				CA2BC6AA21F229F4000903CB /* AppDelegate.swift */,
 				CA2BC6AC21F229F4000903CB /* MainViewController.swift */,
+				CA2BC6BC21F28EEB000903CB /* MultipleChoiceViewController.swift */,
 				CA2BC6AE21F229F4000903CB /* Main.storyboard */,
+				CA2BC6C021F2928E000903CB /* ChoiceViewController.swift */,
 				CA2BC6B121F229F5000903CB /* Assets.xcassets */,
 				CA2BC6B321F229F5000903CB /* LaunchScreen.storyboard */,
 				CA2BC6B621F229F5000903CB /* Info.plist */,
@@ -137,6 +143,8 @@
 			files = (
 				CA2BC6AD21F229F4000903CB /* MainViewController.swift in Sources */,
 				CA2BC6AB21F229F4000903CB /* AppDelegate.swift in Sources */,
+				CA2BC6BD21F28EEB000903CB /* MultipleChoiceViewController.swift in Sources */,
+				CA2BC6C121F2928E000903CB /* ChoiceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
