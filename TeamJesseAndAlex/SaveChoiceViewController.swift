@@ -87,6 +87,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     @IBAction func save(sender: UIButton!){
+        saveBtn.isEnabled = false
         self.textField.resignFirstResponder()
         UIView.animate(withDuration: 0.3){
             self.view.superview?.alpha = 0

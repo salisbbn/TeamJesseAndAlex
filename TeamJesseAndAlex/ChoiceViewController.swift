@@ -35,8 +35,7 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
-            }
-//            if info.4 == self.soundURL{
+                
                 do{
                     try self.audioPlayer = AVAudioPlayer(contentsOf: (info.4))
                     self.audioPlayer!.delegate = self
@@ -44,7 +43,7 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 }catch let error as NSError{
                     print("audioPlayer error: \(error.localizedDescription)")
                 }
-//            }
+            }
         }
     }
     
