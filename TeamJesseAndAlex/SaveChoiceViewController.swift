@@ -9,14 +9,22 @@
 import AudioKit
 import AudioKitUI
 import UIKit
+import AVFoundation
 
-class SaveChoiceViewController: UIViewController {
+class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var dialogView: UIView!
     
+    @IBOutlet weak var recordBtn: UIButton!
+    @IBOutlet weak var stopBtn: UIButton!
+    @IBOutlet weak var saveBtn: UIButton!
+    
     var currentSelection: [AnyHashable: Any]?
+    
+    var audioRecorder: AVAudioRecorder?
+
     
     override func viewDidLoad() {
         dialogView.layer.cornerRadius = 8
@@ -27,6 +35,55 @@ class SaveChoiceViewController: UIViewController {
             self.imageView.image = notification.userInfo!["UIImagePickerControllerOriginalImage"] as? UIImage
             
         }
+        
+        recordBtn.isEnabled = true
+        stopBtn.isEnabled = false
+        saveBtn.isEnabled = false
+        
+        let fileMgr = FileManager.default
+        let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
+        
+        let soundFileURL = dirPaths[0].appendingPathComponent("sound.caf")
+        
+        let recordSettings = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
+                              AVEncoderBitRateKey: 16,
+                              AVNumberOfChannelsKey: 2,
+                              AVSampleRateKey: 44100.0] as [String : Any]
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        audioSession.perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playAndRecord)
+        
+//        do{
+////            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
+//            try audioSession.perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playAndRecord)
+//        }catch let error as NSError{
+//            print("audioSession error: \(error.localizedDescription)")
+//        }
+        
+        do{
+            try audioRecorder = AVAudioRecorder(url: soundFileURL, settings: recordSettings as [String: AnyObject])
+            audioRecorder?.prepareToRecord()
+        }catch let error as NSError{
+            print("audioSession error: \(error.localizedDescription)")
+        }
+    }
+    
+    @IBAction func record(_ sender: UIButton!) {
+        if audioRecorder?.isRecording == false{
+            recordBtn.isEnabled = false
+            saveBtn.isEnabled = false
+            stopBtn.isEnabled = true
+            audioRecorder?.record()
+        }
+    }
+    
+    @IBAction func stopRecord(_ sender: UIButton!) {
+        stopBtn.isEnabled = false
+        saveBtn.isEnabled = true
+        recordBtn.isEnabled = true
+        
+        audioRecorder?.stop()
     }
     
     @IBAction func save(sender: UIButton!){
@@ -43,8 +100,9 @@ class SaveChoiceViewController: UIViewController {
         let name = textField.text
         let imageLocation = currentSelection?["UIImagePickerControllerImageURL"]
         let tag = currentSelection?["selection"]
+        let soundURL = audioRecorder?.url
         
-        let info = ["info":(uuid, name, imageLocation, tag)]
+        let info = ["info":(uuid, name, imageLocation, tag, soundURL)]
         
         NotificationCenter.default.post(name: Notification.Name("readyForSelection"), object: nil, userInfo: info)
     }
