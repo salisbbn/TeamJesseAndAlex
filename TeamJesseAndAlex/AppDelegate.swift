@@ -52,38 +52,38 @@ class DataManager {
         
         let fileManager = FileManager.default
         var temp: Data? = nil
-        var fileURL: URL
+        var fileURL: URL? = nil
         
         do {
             let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
             fileURL = documentDirectory.appendingPathComponent("data.json")
-            temp = try Data(contentsOf: fileURL)
+            guard fileURL != nil else {
+                return;
+            }
+            temp = try Data(contentsOf: fileURL!)
         } catch let err{
             print(err)
-            return;
-        }
-        
-        guard let jsonData = temp  else {
-            return;
         }
         
         var newBoards: [Board] = []
         let decoder = JSONDecoder()
-        do {
-            let oldBoards = try decoder.decode([Board].self, from: jsonData);
-            for b in oldBoards {
-                newBoards.append(b)
+        if let jsonData = temp  {
+            do {
+                let oldBoards = try decoder.decode([Board].self, from: jsonData);
+                for b in oldBoards {
+                    newBoards.append(b)
+                }
+            } catch let err {
+                print(err)
             }
-        } catch let err {
-            print(err)
         }
         
         newBoards.append(b)
         
         let encoder = JSONEncoder()
         do {
-            let dataToWrite = try encoder.encode(b)
-            try dataToWrite.write(to: fileURL)
+            let dataToWrite = try encoder.encode(newBoards)
+            try dataToWrite.write(to: fileURL!)
         } catch let err {
             print(err)
         }

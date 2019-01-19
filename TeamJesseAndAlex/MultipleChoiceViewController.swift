@@ -15,6 +15,7 @@ class MultipleChoiceViewController: UIViewController {
     
     var numberOfDesiredChoices = 2
     
+    @IBOutlet weak var saveBoardButton: UIBarButtonItem!
     var board: Board?
     
     override func viewDidLoad() {
@@ -29,9 +30,23 @@ class MultipleChoiceViewController: UIViewController {
             stackView.addArrangedSubview(choiceVC.view)
         }
         
+        NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
+            let choice = notification.userInfo?["choice"] as! Choice
+            self.board?.choices.append(choice);
+        }
+        
+        NotificationCenter.default.addObserver(forName: Notification.Name("disableYoruself"), object: nil, queue: .main){ notification in
+            self.saveBoardButton.isEnabled = true
+        }
         
     }
     
+    @IBAction func save(_ sender: Any) {
+        if let b = self.board{
+            (UIApplication.shared.delegate as! AppDelegate).dataManager.writeToDisk(b: b)
+            self.saveBoardButton.isEnabled = false
+        }
+    }
 
     /*
     // MARK: - Navigation
