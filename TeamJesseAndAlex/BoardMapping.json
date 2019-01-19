@@ -1,14 +1,14 @@
 {
     "board": {
-        "boardKey1": { // NSUUID().uuidString
+        "boardKey1": {
             "name": "board name"
         },
-        "boardKey2": { // NSUUID().uuidString
+        "boardKey2": {
             "name": "board name"
         }
     },
     "image": {
-        "imageKey1": { // NSUUID().uuidString
+        "imageKey1": {
             "board": [
                 "boardKey1",
                 "boardKey2"
@@ -17,7 +17,7 @@
             "imagePath": "../../",
             "audioPath": "../../"
         },
-        "imageKey2": { // NSUUID().uuidString
+        "imageKey2": {
             "board": [
                 "boardKey1",
                 "boardKey2"
