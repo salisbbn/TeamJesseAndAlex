@@ -15,7 +15,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var fourChoicesBtn: UIButton!
     
     @IBOutlet weak var savedBoardBtn: UIButton!
-    @IBOutlet weak var imageLibraryBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,10 +37,6 @@ class MainViewController: UIViewController {
         savedBoardBtn.layer.borderColor = appleBlue
         savedBoardBtn.layer.borderWidth = 1.0
         savedBoardBtn.layer.cornerRadius = 8.0
-        
-        imageLibraryBtn.layer.borderColor = appleBlue
-        imageLibraryBtn.layer.borderWidth = 1.0
-        imageLibraryBtn.layer.cornerRadius = 8.0
     }
 
 
