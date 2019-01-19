@@ -102,12 +102,18 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         
         let fileMgr = FileManager.default
         let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
-        let soundFileURL = dirPaths[0].appendingPathComponent("\(choice?.id).caf")
+        
+        var soundFileURL: URL? = nil
+        if let choiceId = choice?.id{
+            soundFileURL = dirPaths[0].appendingPathComponent("\(choiceId).caf")
+        }
         
         if let dataUrl = audioRecorder?.url{
             do {
                 let data = try Data(contentsOf: dataUrl)
-                try data.write(to: soundFileURL)
+                if let url = soundFileURL{
+                    try data.write(to: url)
+                }
             }catch let err {
                 print("temp file isn't there :(")
             }

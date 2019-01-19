@@ -20,7 +20,7 @@ class MultipleChoiceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        /*
         board = Board()
         
         for index in 0..<numberOfDesiredChoices {
@@ -29,7 +29,7 @@ class MultipleChoiceViewController: UIViewController {
             self.addChild(choiceVC)
             stackView.addArrangedSubview(choiceVC.view)
         }
-        
+        */
         NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
             let choice = notification.userInfo?["choice"] as! Choice
             self.board?.choices.append(choice);
@@ -37,6 +37,24 @@ class MultipleChoiceViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Notification.Name("disableYoruself"), object: nil, queue: .main){ notification in
             self.saveBoardButton.isEnabled = true
+        }
+        
+        if self.board == nil {
+            board = Board()
+        }
+        
+        var numChoices = 0
+        numChoices = board?.choices.count != 0 ? board?.choices.count ?? 0 : numberOfDesiredChoices
+        
+        for index in 0..<numChoices {
+            let choiceVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "choiceViewController") as! ChoiceViewController
+            self.addChild(choiceVC)
+            stackView.addArrangedSubview(choiceVC.view)
+            
+            if index < board?.choices.count ?? 0, let c = board?.choices[index]{
+                choiceVC.choice = c
+                NotificationCenter.default.post(name: Notification.Name("choiceConfigured"), object: nil, userInfo: ["choice": choiceVC.choice])
+            }
         }
         
     }
