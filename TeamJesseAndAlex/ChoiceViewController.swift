@@ -8,8 +8,9 @@
 
 import UIKit
 import Photos
+import AVFoundation
 
-class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  UIImagePickerControllerDelegate {
+class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  UIImagePickerControllerDelegate, AVAudioPlayerDelegate {
     
     @IBOutlet weak var selectButton: UIButton!
     @IBOutlet weak var imageView: UIImageView!
@@ -17,6 +18,8 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
     @IBOutlet weak var textLb: UILabel!
     
     var tag: Int?
+    var soundURL: URL?
+    var audioPlayer: AVAudioPlayer?
     
     var choice = Choice()
     
@@ -35,14 +38,23 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
+                
+                if let audioFile = choice.audioRecordingPath{
+                    do{
+                        try self.audioPlayer = AVAudioPlayer(contentsOf: (audioFile))
+                        self.audioPlayer!.delegate = self
+                        self.audioPlayer!.prepareToPlay()
+                    }catch let error as NSError{
+                        print("audioPlayer error: \(error.localizedDescription)")
+                    }
+                }
             }
-
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name("disableYoruself"), object: nil, queue: .main){ notification in
             self.view.isUserInteractionEnabled = false
             
-            if let selected = notification.userInfo?[self.choice.id] {
+            if let _ = notification.userInfo?[self.choice.id] {
                 return;
             }
             
@@ -71,6 +83,8 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         
         self.selectButton.layer.borderColor = UIColor.green.cgColor
         self.selectButton.layer.borderWidth = 20
+        
+        self.audioPlayer!.play()
     }
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
