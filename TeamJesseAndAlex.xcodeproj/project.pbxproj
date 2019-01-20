@@ -17,6 +17,8 @@
 		CA2BC6D021F2B1C5000903CB /* SaveChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */; };
 		CA9CF2BA21F3C9D200FA8F32 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA9CF2B921F3C9D200FA8F32 /* AVFoundation.framework */; };
 		CAD58E0C21F3E5E900C2AAA0 /* SavedBoardsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD58E0B21F3E5E900C2AAA0 /* SavedBoardsTableViewController.swift */; };
+		CAD58E0E21F4F46600C2AAA0 /* DataObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD58E0D21F4F46600C2AAA0 /* DataObjects.swift */; };
+		CAD58E1021F4F48A00C2AAA0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD58E0F21F4F48A00C2AAA0 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveChoiceViewController.swift; sourceTree = "<group>"; };
 		CA9CF2B921F3C9D200FA8F32 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		CAD58E0B21F3E5E900C2AAA0 /* SavedBoardsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedBoardsTableViewController.swift; sourceTree = "<group>"; };
+		CAD58E0D21F4F46600C2AAA0 /* DataObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataObjects.swift; sourceTree = "<group>"; };
+		CAD58E0F21F4F48A00C2AAA0 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +80,8 @@
 				CA2BC6B621F229F5000903CB /* Info.plist */,
 				CA2BC6CF21F2B1C5000903CB /* SaveChoiceViewController.swift */,
 				CAD58E0B21F3E5E900C2AAA0 /* SavedBoardsTableViewController.swift */,
+				CAD58E0D21F4F46600C2AAA0 /* DataObjects.swift */,
+				CAD58E0F21F4F48A00C2AAA0 /* DataManager.swift */,
 			);
 			path = TeamJesseAndAlex;
 			sourceTree = "<group>";
@@ -160,10 +166,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CA2BC6AD21F229F4000903CB /* MainViewController.swift in Sources */,
+				CAD58E1021F4F48A00C2AAA0 /* DataManager.swift in Sources */,
 				CA2BC6AB21F229F4000903CB /* AppDelegate.swift in Sources */,
 				CAD58E0C21F3E5E900C2AAA0 /* SavedBoardsTableViewController.swift in Sources */,
 				CA2BC6BD21F28EEB000903CB /* MultipleChoiceViewController.swift in Sources */,
 				CA2BC6C121F2928E000903CB /* ChoiceViewController.swift in Sources */,
+				CAD58E0E21F4F46600C2AAA0 /* DataObjects.swift in Sources */,
 				CA2BC6D021F2B1C5000903CB /* SaveChoiceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
