@@ -15,7 +15,7 @@ class SavedBoardsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.boards = (UIApplication.shared.delegate as! AppDelegate).dataManager.readFromDisk()
+        self.boards = UIApplication.shared.delegate?.dataManager.readFromDisk()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

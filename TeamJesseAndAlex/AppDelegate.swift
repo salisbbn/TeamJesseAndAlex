@@ -12,7 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var dataManager = DataManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -44,24 +43,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
-
+extension UIApplicationDelegate {
+    var dataManager: DataManager {
+        return DataManager.shared
+    }
+}
 
 class DataManager {
-   
-    func readFromDisk() -> [Board]?{
-        let fileManager = FileManager.default
-        var temp: Data? = nil
-        var fileURL: URL? = nil
-        
+    
+    static let shared = DataManager()
+    private init() {}
+    
+    var docsDir: URL? {
         do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            fileURL = documentDirectory.appendingPathComponent("data.json")
-            guard fileURL != nil else {
-                return nil;
-            }
+            return try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+   
+    func readFromDisk() -> [Board]{
+        let documentDirectory = self.docsDir
+        let fileURL = documentDirectory?.appendingPathComponent("data.json")
+        
+        guard fileURL != nil else {
+            return []
+        }
+        
+        var temp: Data? = nil
+        do {
             temp = try Data(contentsOf: fileURL!)
-        } catch let err{
-            print(err)
+        } catch {
+            print(error)
         }
         
         let decoder = JSONDecoder()
@@ -69,49 +83,28 @@ class DataManager {
             do {
                 let oldBoards = try decoder.decode([Board].self, from: jsonData);
                 return oldBoards
-            } catch let err {
-                print(err)
+            } catch {
+                print(error)
             }
         }
-        return nil
+        return []
     }
     
     func writeToDisk(b: Board){
         
-        let fileManager = FileManager.default
-        var temp: Data? = nil
-        var fileURL: URL? = nil
+        var boards = self.readFromDisk()
+        boards.append(b)
         
-        do {
-            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-            fileURL = documentDirectory.appendingPathComponent("data.json")
-            guard fileURL != nil else {
-                return;
-            }
-            temp = try Data(contentsOf: fileURL!)
-        } catch let err{
-            print(err)
+        let documentDirectory = self.docsDir
+        
+        guard let fileURL = documentDirectory?.appendingPathComponent("data.json") else {
+            return
         }
-        
-        var newBoards: [Board] = []
-        let decoder = JSONDecoder()
-        if let jsonData = temp  {
-            do {
-                let oldBoards = try decoder.decode([Board].self, from: jsonData);
-                for b in oldBoards {
-                    newBoards.append(b)
-                }
-            } catch let err {
-                print(err)
-            }
-        }
-        
-        newBoards.append(b)
         
         let encoder = JSONEncoder()
         do {
-            let dataToWrite = try encoder.encode(newBoards)
-            try dataToWrite.write(to: fileURL!)
+            let data = try encoder.encode(boards)
+            try data.write(to: fileURL)
         } catch let err {
             print(err)
         }
