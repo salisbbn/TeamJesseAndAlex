@@ -22,8 +22,7 @@ class MultipleChoiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if (saveDisabled != nil && saveDisabled!)
-        {
+        if let _ = saveDisabled {
             self.saveBoardButton.title = ""
             self.saveBoardButton.isEnabled = false
         }
@@ -59,6 +58,10 @@ class MultipleChoiceViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: Any) {
+        
+        if let _ = saveDisabled {
+            return
+        }
         
         let alert = UIAlertController(title: "Name this board:", message: nil, preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil);
