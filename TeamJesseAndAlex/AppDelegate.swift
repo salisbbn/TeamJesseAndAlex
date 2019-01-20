@@ -90,7 +90,7 @@ class DataManager {
         return []
     }
     
-    func writeToDisk(b: Board){
+    func saveToDisk(b: Board){
         
         var boards = self.readFromDisk()
         boards.append(b)

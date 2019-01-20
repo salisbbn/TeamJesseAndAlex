@@ -63,7 +63,7 @@ class MultipleChoiceViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action) in
             if self.board != nil{
                 self.board!.name = alert.textFields?[0].text
-                UIApplication.shared.delegate?.dataManager.writeToDisk(b: self.board!)
+                UIApplication.shared.delegate?.dataManager.saveToDisk(b: self.board!)
                 self.saveBoardButton?.isEnabled = false
             }
         }))
