@@ -37,17 +37,8 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         stopBtn.isEnabled = false
         saveBtn.isEnabled = false
         
-        let fileMgr = FileManager.default
-        var dirPaths:URL? = nil
-        do{
-            dirPaths = try fileMgr.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-        }catch let err{
-            
-        }
-        
-        let soundFileURL = dirPaths?.appendingPathComponent("sound.caf")
-        
-        guard soundFileURL != nil else {
+        let documentDirectory = UIApplication.shared.delegate?.dataManager.docsDir
+        guard let soundFileURL = documentDirectory?.appendingPathComponent("sound.caf") else{
             return
         }
         
@@ -68,7 +59,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
 //        }
         
         do{
-            try audioRecorder = AVAudioRecorder(url: soundFileURL!, settings: recordSettings as [String: AnyObject])
+            try audioRecorder = AVAudioRecorder(url: soundFileURL, settings: recordSettings as [String: AnyObject])
             audioRecorder?.prepareToRecord()
         }catch let error as NSError{
             print("audioSession error: \(error.localizedDescription)")
@@ -107,16 +98,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         var choice = currentSelection?["choice"] as? Choice
         choice?.name = textField.text
         
-        
-        
-        
-        
-        var documentDirectory: URL? = nil
-        do{
-            documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-        }catch let err{
-            
-        }
+        let documentDirectory = UIApplication.shared.delegate?.dataManager.docsDir
         
         if let choiceId = choice?.id {
             choice?.audioRecordingName = "\(String(describing: choiceId)).caf"

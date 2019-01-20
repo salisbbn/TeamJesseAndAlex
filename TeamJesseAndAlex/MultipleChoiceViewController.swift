@@ -15,16 +15,15 @@ class MultipleChoiceViewController: UIViewController {
     
     var numberOfDesiredChoices = 2
     
-    @IBOutlet weak var saveBoardButton: UIBarButtonItem!
+    @IBOutlet weak var saveBoardButton: UIBarButtonItem?
     var board: Board?
-    var saveDisabled: Bool?
+    var saveDisabled = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let _ = saveDisabled {
-            self.saveBoardButton.title = ""
-            self.saveBoardButton.isEnabled = false
+        if saveDisabled {
+            self.navigationItem.rightBarButtonItem = nil;            
         }
         
         
@@ -34,7 +33,7 @@ class MultipleChoiceViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(forName: Notification.Name("disableYoruself"), object: nil, queue: .main){ notification in
-            self.saveBoardButton.isEnabled = true
+            self.saveBoardButton?.isEnabled = true
         }
         
         if self.board == nil {
@@ -59,17 +58,13 @@ class MultipleChoiceViewController: UIViewController {
     
     @IBAction func save(_ sender: Any) {
         
-        if let _ = saveDisabled {
-            return
-        }
-        
         let alert = UIAlertController(title: "Name this board:", message: nil, preferredStyle: .alert)
         alert.addTextField(configurationHandler: nil);
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (action) in
             if self.board != nil{
                 self.board!.name = alert.textFields?[0].text
                 UIApplication.shared.delegate?.dataManager.writeToDisk(b: self.board!)
-                self.saveBoardButton.isEnabled = false
+                self.saveBoardButton?.isEnabled = false
             }
         }))
         

@@ -31,6 +31,8 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
             let choice = notification.userInfo?["choice"] as! Choice
             
+            let documentDirectory = UIApplication.shared.delegate?.dataManager.docsDir
+            
             if self.choice.id == choice.id{
                 self.cameraView.isHidden = true
                 self.textLb.isHidden = false
@@ -38,10 +40,13 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 
                 if let name = choice.imageName{
                     var data: Data? = nil
+
+                    guard let imageURL = documentDirectory?.appendingPathComponent(name) else {
+                        return
+                    }
+                    
                     do{
-                        let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-                        let fileURL = documentDirectory.appendingPathComponent(name)
-                        data = try Data(contentsOf: fileURL)
+                        data = try Data(contentsOf: imageURL)
                     }catch let err{
                         print(err)
                     }
@@ -55,12 +60,14 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
                 
-                if let audioFile = choice.audioRecordingName{
+                if let name = choice.audioRecordingName{
+                    
+                    guard let audioURL = documentDirectory?.appendingPathComponent(name) else {
+                        return
+                    }
+                    
                     do{
-                        let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
-                        let fileURL = documentDirectory.appendingPathComponent(audioFile)
-                        
-                        try self.audioPlayer = AVAudioPlayer(contentsOf: (fileURL))
+                        try self.audioPlayer = AVAudioPlayer(contentsOf: (audioURL))
                         self.audioPlayer!.delegate = self
                         self.audioPlayer!.prepareToPlay()
                     }catch let error as NSError{
