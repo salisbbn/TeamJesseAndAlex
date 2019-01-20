@@ -39,9 +39,12 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
                 
-                if let audioFile = choice.audioRecordingPath{
+                if let audioFile = choice.audioRecordingName{
                     do{
-                        try self.audioPlayer = AVAudioPlayer(contentsOf: (audioFile))
+                        let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+                        let fileURL = documentDirectory.appendingPathComponent(audioFile)
+                        
+                        try self.audioPlayer = AVAudioPlayer(contentsOf: (fileURL))
                         self.audioPlayer!.delegate = self
                         self.audioPlayer!.prepareToPlay()
                     }catch let error as NSError{
@@ -84,7 +87,9 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         self.selectButton.layer.borderColor = UIColor.green.cgColor
         self.selectButton.layer.borderWidth = 20
         
-        self.audioPlayer!.play()
+        if let player = self.audioPlayer{
+            player.play()
+        }
     }
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

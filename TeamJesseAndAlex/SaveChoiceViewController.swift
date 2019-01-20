@@ -38,9 +38,18 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         saveBtn.isEnabled = false
         
         let fileMgr = FileManager.default
-        let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
+        var dirPaths:URL? = nil
+        do{
+            dirPaths = try fileMgr.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+        }catch let err{
+            
+        }
         
-        let soundFileURL = dirPaths[0].appendingPathComponent("sound.caf")
+        let soundFileURL = dirPaths?.appendingPathComponent("sound.caf")
+        
+        guard soundFileURL != nil else {
+            return
+        }
         
         let recordSettings = [AVEncoderAudioQualityKey: AVAudioQuality.min.rawValue,
                               AVEncoderBitRateKey: 16,
@@ -59,7 +68,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
 //        }
         
         do{
-            try audioRecorder = AVAudioRecorder(url: soundFileURL, settings: recordSettings as [String: AnyObject])
+            try audioRecorder = AVAudioRecorder(url: soundFileURL!, settings: recordSettings as [String: AnyObject])
             audioRecorder?.prepareToRecord()
         }catch let error as NSError{
             print("audioSession error: \(error.localizedDescription)")
@@ -100,18 +109,23 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         choice?.imagePath = currentSelection?["UIImagePickerControllerImageURL"] as? URL
         
         
-        let fileMgr = FileManager.default
-        let dirPaths = fileMgr.urls(for: .documentDirectory, in: .userDomainMask)
         
-        var soundFileURL: URL? = nil
-        if let choiceId = choice?.id{
-            soundFileURL = dirPaths[0].appendingPathComponent("\(choiceId).caf")
+        
+        var documentDirectory: URL? = nil
+        do{
+            documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+        }catch let err{
+            
+        }
+        
+        if let choiceId = choice?.id {
+            choice?.audioRecordingName = "\(String(describing: choiceId)).caf"
         }
         
         if let dataUrl = audioRecorder?.url{
             do {
                 let data = try Data(contentsOf: dataUrl)
-                if let url = soundFileURL{
+                if let fName = choice?.audioRecordingName, let url = documentDirectory?.appendingPathComponent(fName){
                     try data.write(to: url)
                 }
             }catch let err {
@@ -120,7 +134,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
             
         }
         
-        choice?.audioRecordingPath = soundFileURL
+        
         
         if let c = choice{
             DataNotification.choiceConfigured(c: c).notify()

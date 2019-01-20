@@ -171,7 +171,7 @@ struct Choice: Codable{
     var id: UUID
     var name: String?
     var imagePath: URL?
-    var audioRecordingPath: URL?
+    var audioRecordingName: String?
     
     init() {
         self.id = UUID()
