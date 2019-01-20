@@ -111,6 +111,7 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
         self.selectButton.layer.borderWidth = 20
         
         if let player = self.audioPlayer{
+            player.volume = 1.0
             player.play()
         }
     }
