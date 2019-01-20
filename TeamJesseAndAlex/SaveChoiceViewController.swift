@@ -106,7 +106,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
 
         var choice = currentSelection?["choice"] as? Choice
         choice?.name = textField.text
-        choice?.imagePath = currentSelection?["UIImagePickerControllerImageURL"] as? URL
+        
         
         
         
@@ -120,6 +120,7 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         
         if let choiceId = choice?.id {
             choice?.audioRecordingName = "\(String(describing: choiceId)).caf"
+            choice?.imageName = "\(String(describing: choiceId)).jpeg"
         }
         
         if let dataUrl = audioRecorder?.url{
@@ -127,6 +128,18 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
                 let data = try Data(contentsOf: dataUrl)
                 if let fName = choice?.audioRecordingName, let url = documentDirectory?.appendingPathComponent(fName){
                     try data.write(to: url)
+                }
+            }catch let err {
+                print("temp file isn't there :(")
+            }
+            
+        }
+        
+        if let editedImage = currentSelection?["UIImagePickerControllerEditedImage"] as? UIImage{
+            do {
+                let data = editedImage.jpegData(compressionQuality: 1.0)
+                if let fName = choice?.imageName, let url = documentDirectory?.appendingPathComponent(fName), let d = data{
+                    try d.write(to: url)
                 }
             }catch let err {
                 print("temp file isn't there :(")

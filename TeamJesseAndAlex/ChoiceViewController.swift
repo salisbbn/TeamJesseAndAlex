@@ -36,6 +36,22 @@ class ChoiceViewController: UIViewController, UINavigationControllerDelegate,  U
                 self.textLb.isHidden = false
                 self.textLb.text = choice.name?.uppercased()
                 
+                if let name = choice.imageName{
+                    var data: Data? = nil
+                    do{
+                        let documentDirectory = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+                        let fileURL = documentDirectory.appendingPathComponent(name)
+                        data = try Data(contentsOf: fileURL)
+                    }catch let err{
+                        print(err)
+                    }
+                    if let d = data{
+                        let i = UIImage(data: d)
+                        self.imageView.image = i
+                    }
+                    
+                }
+                
                 self.selectButton.removeTarget(self, action: #selector(self.selectImage(sender:)), for: .touchUpInside)
                 self.selectButton.addTarget(self, action: #selector(self.selectChoice), for: .touchUpInside)
                 

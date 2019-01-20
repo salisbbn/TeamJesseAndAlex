@@ -170,7 +170,7 @@ struct Board: Codable {
 struct Choice: Codable{
     var id: UUID
     var name: String?
-    var imagePath: URL?
+    var imageName: String?
     var audioRecordingName: String?
     
     init() {

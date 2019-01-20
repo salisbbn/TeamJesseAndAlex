@@ -20,16 +20,7 @@ class MultipleChoiceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*
-        board = Board()
         
-        for index in 0..<numberOfDesiredChoices {
-            let choiceVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "choiceViewController") as! ChoiceViewController
-            choiceVC.tag = index
-            self.addChild(choiceVC)
-            stackView.addArrangedSubview(choiceVC.view)
-        }
-        */
         NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
             let choice = notification.userInfo?["choice"] as! Choice
             self.board?.choices.append(choice);
