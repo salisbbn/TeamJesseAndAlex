@@ -109,6 +109,26 @@ class DataManager {
             print(err)
         }
     }
+    
+    func deleteFromDisk(b: Board){
+        
+        var boards = self.readFromDisk()
+        boards = boards.filter {$0.id != b.id }
+        
+        let documentDirectory = self.docsDir
+        guard let fileURL = documentDirectory?.appendingPathComponent("data.json") else {
+            return
+        }
+        
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(boards)
+            try data.write(to: fileURL)
+        } catch let err {
+            print(err)
+        }
+        
+    }
 }
 
 enum DataNotification{

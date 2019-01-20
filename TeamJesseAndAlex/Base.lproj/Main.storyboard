@@ -330,7 +330,7 @@
             </objects>
             <point key="canvasLocation" x="1965.5999999999999" y="467.73399014778329"/>
         </scene>
-        <!--Saved Boards Table View Controller-->
+        <!--Saved Boards-->
         <scene sceneID="xhN-ey-Fsj">
             <objects>
                 <tableViewController id="y4h-ef-9NC" customClass="SavedBoardsTableViewController" customModule="TeamJesseAndAlex" customModuleProvider="target" sceneMemberID="viewController">
@@ -353,7 +353,15 @@
                             <outlet property="delegate" destination="y4h-ef-9NC" id="mTw-l3-7bN"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Saved Boards" id="WQI-YV-KFE">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="jSF-7x-bUz" userLabel="Delete">
+                            <connections>
+                                <action selector="deleteBoards:" destination="y4h-ef-9NC" id="K2s-zD-a2v"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editBtn" destination="jSF-7x-bUz" id="Mwq-Wa-lp8"/>
                         <segue destination="gds-wD-4YB" kind="show" identifier="choices" id="oXn-fn-46a"/>
                     </connections>
                 </tableViewController>

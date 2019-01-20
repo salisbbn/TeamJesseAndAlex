@@ -12,14 +12,19 @@ class SavedBoardsTableViewController: UITableViewController {
 
     var boards: [Board]?
     
+    @IBOutlet weak var editBtn: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.boards = UIApplication.shared.delegate?.dataManager.readFromDisk()
         
+        editBtn.isEnabled = true
+        self.tableView.isEditing = false
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
@@ -66,50 +71,31 @@ class SavedBoardsTableViewController: UITableViewController {
         (segue.destination as! MultipleChoiceViewController).saveDisabled = true
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    @IBAction func deleteBoards(_ sender: Any) {
+        self.tableView.isEditing = !self.tableView.isEditing
+        if self.tableView.isEditing {
+            self.navigationItem.rightBarButtonItem?.title = "Done"
+        }else{
+            self.navigationItem.rightBarButtonItem?.title = "Edit"
+        }
     }
-    */
 
-    /*
     // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+            //get the board
+            let board = self.boards?[indexPath.row]
+            
+            //delete board from disk
+            (UIApplication.shared.delegate as! AppDelegate).dataManager.deleteFromDisk(b: board!)
+            self.boards = UIApplication.shared.delegate?.dataManager.readFromDisk()
+            
+            //reload the table view
+            self.tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .left)
+            
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
