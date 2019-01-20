@@ -59,7 +59,17 @@ class SaveChoiceViewController: UIViewController, AVAudioRecorderDelegate {
         let audioSession = AVAudioSession.sharedInstance()
         
         audioSession.perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playAndRecord)
+        do{
+            try audioSession.overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
+        } catch let error as NSError{
+            print("audioSession error: \(error.localizedDescription)")
+        }
         
+        do {
+            try audioSession.setInputGain(1.0)
+        } catch let error as NSError{
+            print("audioSession error: \(error.localizedDescription)")
+        }
 //        do{
 ////            try audioSession.setCategory(AVAudioSession.Category.playAndRecord)
 //            try audioSession.perform(NSSelectorFromString("setCategory:error:"), with: AVAudioSession.Category.playAndRecord)
