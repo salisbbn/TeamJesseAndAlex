@@ -63,6 +63,7 @@ class SavedBoardsTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         (segue.destination as! MultipleChoiceViewController).board = sender as! Board
+        (segue.destination as! MultipleChoiceViewController).saveDisabled = true as! Bool
     }
     
 

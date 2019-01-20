@@ -17,9 +17,17 @@ class MultipleChoiceViewController: UIViewController {
     
     @IBOutlet weak var saveBoardButton: UIBarButtonItem!
     var board: Board?
+    var saveDisabled: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (saveDisabled != nil && saveDisabled!)
+        {
+            self.saveBoardButton.title = ""
+            self.saveBoardButton.isEnabled = false
+        }
+        
         
         NotificationCenter.default.addObserver(forName: Notification.Name("choiceConfigured"), object: nil, queue: .main){ notification in
             let choice = notification.userInfo?["choice"] as! Choice
