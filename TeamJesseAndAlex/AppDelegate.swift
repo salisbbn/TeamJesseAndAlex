@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 class DataManager {
-   
+    
     func readFromDisk() -> [Board]?{
         let fileManager = FileManager.default
         var temp: Data? = nil
@@ -107,6 +107,47 @@ class DataManager {
         }
         
         newBoards.append(b)
+        
+        let encoder = JSONEncoder()
+        do {
+            let dataToWrite = try encoder.encode(newBoards)
+            try dataToWrite.write(to: fileURL!)
+        } catch let err {
+            print(err)
+        }
+    }
+    
+    func deleteFromDisk(b: Board){
+        
+        let fileManager = FileManager.default
+        var temp: Data? = nil
+        var fileURL: URL? = nil
+        
+        do {
+            let documentDirectory = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor:nil, create:false)
+            fileURL = documentDirectory.appendingPathComponent("data.json")
+            guard fileURL != nil else {
+                return;
+            }
+            temp = try Data(contentsOf: fileURL!)
+        } catch let err{
+            print(err)
+        }
+        
+        var newBoards: [Board] = []
+        let decoder = JSONDecoder()
+        if let jsonData = temp  {
+            do {
+                let oldBoards = try decoder.decode([Board].self, from: jsonData);
+                for b in oldBoards {
+                    newBoards.append(b)
+                }
+            } catch let err {
+                print(err)
+            }
+        }
+        
+        newBoards = newBoards.filter {$0.id != b.id }
         
         let encoder = JSONEncoder()
         do {
